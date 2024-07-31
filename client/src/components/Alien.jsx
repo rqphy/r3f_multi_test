@@ -8,7 +8,6 @@ import { useGraph } from "@react-three/fiber"
 import { useGLTF, useAnimations } from "@react-three/drei"
 import { SkeletonUtils } from "three-stdlib"
 
-const BASE_ANIMATION = "AlienArmature|Alien_"
 const ANIMATION_FADE_DURATION = 0.3
 
 export function Alien({
@@ -22,15 +21,11 @@ export function Alien({
 	const { nodes } = useGraph(clone)
 	const { actions } = useAnimations(animations, group)
 
-	const [animation, setAnimation] = useState("Idle")
+	const [animation, setAnimation] = useState("AlienArmature|Alien_Walk")
 
 	useEffect(() => {
-		actions[BASE_ANIMATION + animation]
-			.reset()
-			.fadeIn(ANIMATION_FADE_DURATION)
-			.play()
-		return () =>
-			actions[BASE_ANIMATION + animation].fadeOut(ANIMATION_FADE_DURATION)
+		actions[animation].reset().fadeIn(0.5).play()
+		return () => actions[animation]?.fadeOut(0.5)
 	}, [animation])
 
 	return (
