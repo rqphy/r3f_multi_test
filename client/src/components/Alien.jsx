@@ -34,7 +34,7 @@ export function Alien({
 	}, [animation])
 
 	return (
-		<group ref={group} {...props} dispose={null}>
+		<group ref={group} {...props} dispose={null} scale={0.4}>
 			<group name="Root_Scene">
 				<group name="RootNode">
 					<group
