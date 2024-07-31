@@ -11,14 +11,16 @@ import { SkeletonUtils } from "three-stdlib"
 const BASE_ANIMATION = "AlienArmature|Alien_"
 const ANIMATION_FADE_DURATION = 0.3
 
-export function Alien(props) {
+export function Alien({
+	primaryColor = "#FF00FF",
+	secondaryColor = "#FFFF00",
+	...props
+}) {
 	const group = React.useRef()
 	const { scene, materials, animations } = useGLTF("/models/Alien.glb")
 	const clone = React.useMemo(() => SkeletonUtils.clone(scene), [scene])
 	const { nodes } = useGraph(clone)
 	const { actions } = useAnimations(animations, group)
-
-	console.log(actions)
 
 	const [animation, setAnimation] = useState("Idle")
 
@@ -53,7 +55,7 @@ export function Alien(props) {
 							material={materials.Stripe}
 							skeleton={nodes.BaseAlien_1.skeleton}
 						>
-							<meshStandardMaterial color={"red"} />
+							<meshStandardMaterial color={secondaryColor} />
 						</skinnedMesh>
 						<skinnedMesh
 							name="BaseAlien_2"
@@ -61,7 +63,7 @@ export function Alien(props) {
 							material={materials.Main}
 							skeleton={nodes.BaseAlien_2.skeleton}
 						>
-							<meshStandardMaterial color={"blue"} />
+							<meshStandardMaterial color={primaryColor} />
 						</skinnedMesh>
 						<skinnedMesh
 							name="BaseAlien_3"
